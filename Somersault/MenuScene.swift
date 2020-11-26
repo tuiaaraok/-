@@ -9,14 +9,26 @@
 import SpriteKit
 
 class MenuScene: SKScene {
+    
     var playButtonNode = SKSpriteNode()
     var tableNode = SKSpriteNode()
-    var cake1Node = SKSpriteNode()
+    var itemNode = SKSpriteNode()
+    var leftButtonNode = SKSpriteNode()
+    var rightButtonNode = SKSpriteNode()
+    var flipsTagNode = SKSpriteNode()
+    var unlockLabelNode = SKLabelNode()
+    
     var highScore = 0
     var flipsAmount = 0
+    var items = [Item]()
+    var selectedItemIndex = 0
+    var totalItems = 0
 
     override func didMove(to view: SKView) {
         self.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+        
+        items = ItemController.readItems()
+        totalItems = items.count
         
         setupUI()
     }
@@ -47,15 +59,94 @@ class MenuScene: SKScene {
         self.addChild(playButtonNode)
         
         // Table node
-        tableNode = ButtonNode(imageNode: "table", position: CGPoint(x: self.frame.midX, y: self.frame.minY + 30), xScale: 1.3, yScale: 1.3)
+        tableNode = ButtonNode(imageNode: "table", position: CGPoint(x: self.frame.midX, y: self.frame.minY - 30), xScale: 1.3, yScale: 1.3)
         tableNode.zPosition = 3
         self.addChild(tableNode)
         
-        // Bottle node
-        cake1Node = SKSpriteNode(imageNamed: "cake_1")
-        cake1Node.zPosition = 10
-        self.addChild(cake1Node)
+        // Item node
+        selectedItemIndex = ItemController.getSaveItemIndex()
+        let selectedItem = items[selectedItemIndex]
+        itemNode = SKSpriteNode(imageNamed: selectedItem.Sprite!)
+        itemNode.zPosition = 10
+        self.addChild(itemNode)
         
-        // 
+        // left button
+        leftButtonNode = ButtonNode(imageNode: "left", position: CGPoint(x: self.frame.midX + leftButtonNode.size.width - 130, y: self.frame.minY - leftButtonNode.size.height + 170), xScale: 0.3, yScale: 0.3)
+        hideButton(buttonNode: leftButtonNode, state: false)
+        self.addChild(leftButtonNode)
+        
+        // right button
+        rightButtonNode = ButtonNode(imageNode: "right", position: CGPoint(x: self.frame.midX + rightButtonNode.size.width + 130, y: self.frame.minY - rightButtonNode.size.height + 170), xScale: 0.3, yScale: 0.3)
+        hideButton(buttonNode: rightButtonNode, state: true)
+        self.addChild(rightButtonNode)
+        
+        // Lock node
+        flipsTagNode = ButtonNode(imageNode: "", position: CGPoint(x: self.frame.midX + itemNode.size.width * 0.25, y: self.frame.minY + itemNode.size.height / 2 + 100), xScale: 0.5 , yScale: 0.5)
+        flipsTagNode.zPosition = 25
+        flipsTagNode.zRotation = 0.3
+        self.addChild(flipsTagNode)
+        
+        // Unlock label
+        unlockLabelNode = LabelNode(text: "0", fontSize: 36, position: CGPoint(x: 0, y: -unlockLabelNode.frame.size.height + 25), fontColor: .black)
+        unlockLabelNode.zPosition = 30
+        flipsTagNode.addChild(unlockLabelNode)
+        
+        // update selected item
+        self.updateSelectedItem(selectedItem)
+    }
+    
+    func hideButton(buttonNode: SKSpriteNode, state: Bool) {
+        if !state {
+            buttonNode.isHidden = true
+        } else {
+            buttonNode.isHidden = false
+        }
+    }
+    
+    func updateSelectedItem (_ item: Item) {
+        itemNode.texture = SKTexture(imageNamed: item.Sprite!)
+        
+        itemNode.size = CGSize(width: itemNode.texture!.size().width * CGFloat(item.XScale!.floatValue), height: itemNode.texture!.size().height * CGFloat(item.YScale!.floatValue))
+        
+        itemNode.position = CGPoint(x: self.frame.midX, y: self.frame.minY + itemNode.size.height / 2 + 109)
+        
+        flipsTagNode.position = CGPoint(x: self.frame.midX + itemNode.size.width * 0.25, y: self.frame.minY + itemNode.size.height / 2 + 100)
+        unlockLabelNode.text = "\(item.MinFlips?.intValue)"
+        unlockLabelNode.position = CGPoint(x: 0, y: -unlockLabelNode.frame.size.height + 25)
+        
+        updateArrowsState()
+        
+    }
+    
+    func updateArrowsState() {
+        hideButton(buttonNode: leftButtonNode, state: Bool(truncating: selectedItemIndex as NSNumber))
+        hideButton(buttonNode: rightButtonNode, state: selectedItemIndex != totalItems - 1)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for touch in touches {
+            
+            let location = touch.location(in: self)
+            if leftButtonNode.contains(location) {
+                let itemIndex = selectedItemIndex - 1
+                if itemIndex >= 0 {
+                    updateByIndex(itemIndex)
+                }
+            }
+            
+            if rightButtonNode.contains(location) {
+                let nextIndex = selectedItemIndex + 1
+                if nextIndex < totalItems {
+                    updateByIndex(nextIndex)
+                }
+            }
+        }
+    }
+    
+    func updateByIndex(_ index: Int) {
+        let item = items[index]
+        selectedItemIndex = index
+        updateSelectedItem(item)
+        ItemController.saveSelectedItem(selectedItemIndex)
     }
 }

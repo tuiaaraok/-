@@ -19,6 +19,9 @@
 		63B581FE256EDACE008FF979 /* ButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B581FD256EDACE008FF979 /* ButtonNode.swift */; };
 		63B58200256EE278008FF979 /* LabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B581FF256EE278008FF979 /* LabelNode.swift */; };
 		63B58202256EE333008FF979 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B58201256EE333008FF979 /* Constants.swift */; };
+		63B58204256F0450008FF979 /* Items.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63B58203256F0450008FF979 /* Items.plist */; };
+		63B58206256F9851008FF979 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B58205256F9851008FF979 /* Model.swift */; };
+		63B58208256F9976008FF979 /* ItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B58207256F9976008FF979 /* ItemController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +39,9 @@
 		63B581FD256EDACE008FF979 /* ButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonNode.swift; sourceTree = "<group>"; };
 		63B581FF256EE278008FF979 /* LabelNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelNode.swift; sourceTree = "<group>"; };
 		63B58201256EE333008FF979 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		63B58203256F0450008FF979 /* Items.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Items.plist; sourceTree = "<group>"; };
+		63B58205256F9851008FF979 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		63B58207256F9976008FF979 /* ItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,9 +75,12 @@
 			isa = PBXGroup;
 			children = (
 				63B581E1256ED30A008FF979 /* AppDelegate.swift */,
+				63B58203256F0450008FF979 /* Items.plist */,
 				63B581E3256ED30A008FF979 /* GameScene.sks */,
 				63B581E7256ED30A008FF979 /* GameScene.swift */,
 				63B581F9256ED969008FF979 /* MenuScene.swift */,
+				63B58205256F9851008FF979 /* Model.swift */,
+				63B58207256F9976008FF979 /* ItemController.swift */,
 				63B581FD256EDACE008FF979 /* ButtonNode.swift */,
 				63B581FF256EE278008FF979 /* LabelNode.swift */,
 				63B58201256EE333008FF979 /* Constants.swift */,
@@ -144,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				63B581ED256ED30A008FF979 /* Main.storyboard in Resources */,
+				63B58204256F0450008FF979 /* Items.plist in Resources */,
 				63B581E4256ED30A008FF979 /* GameScene.sks in Resources */,
 				63B581EF256ED30B008FF979 /* Assets.xcassets in Resources */,
 				63B581FC256ED97B008FF979 /* MenuScene.sks in Resources */,
@@ -159,12 +169,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				63B581E8256ED30A008FF979 /* GameScene.swift in Sources */,
+				63B58208256F9976008FF979 /* ItemController.swift in Sources */,
 				63B581FA256ED969008FF979 /* MenuScene.swift in Sources */,
 				63B58200256EE278008FF979 /* LabelNode.swift in Sources */,
 				63B581EA256ED30A008FF979 /* GameViewController.swift in Sources */,
 				63B58202256EE333008FF979 /* Constants.swift in Sources */,
 				63B581E2256ED30A008FF979 /* AppDelegate.swift in Sources */,
 				63B581FE256EDACE008FF979 /* ButtonNode.swift in Sources */,
+				63B58206256F9851008FF979 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
