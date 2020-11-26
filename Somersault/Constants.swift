@@ -9,7 +9,13 @@
 import UIKit
 
 // Color setting
-let UI_BACKGROUND_COLOR = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+let uiBackgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
 
 // Font
-let UI_FONT = "Baskerville-SemiBold"
+let uiFont = "Baskerville-SemiBold"
+
+// game setting
+let gameSwipeMinDistance: CGFloat = 20
+let gameSwipeMinSpeed: CGFloat = 20
+let gameAngularVelocity: CGFloat = 5
+

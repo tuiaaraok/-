@@ -9,6 +9,7 @@
 import Foundation
 
 class Item {
+    
     var Sprite: String?
     var Mass: NSNumber?
     var Restitution: NSNumber?

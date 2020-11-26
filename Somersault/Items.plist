@@ -28,7 +28,7 @@
 		<key>Restitution</key>
 		<integer>1</integer>
 		<key>MinFlips</key>
-		<integer>0</integer>
+		<integer>2</integer>
 	</dict>
 	<dict>
 		<key>Sprite</key>
@@ -42,7 +42,7 @@
 		<key>Restitution</key>
 		<integer>5</integer>
 		<key>MinFlips</key>
-		<integer>0</integer>
+		<integer>2</integer>
 	</dict>
 	<dict>
 		<key>Sprite</key>
@@ -56,7 +56,7 @@
 		<key>Restitution</key>
 		<integer>0</integer>
 		<key>MinFlips</key>
-		<integer>0</integer>
+		<integer>3</integer>
 	</dict>
 	<dict>
 		<key>Sprite</key>
@@ -70,7 +70,7 @@
 		<key>Restitution</key>
 		<integer>0</integer>
 		<key>MinFlips</key>
-		<integer>0</integer>
+		<integer>6</integer>
 	</dict>
 	<dict>
 		<key>Sprite</key>
@@ -84,7 +84,7 @@
 		<key>Restitution</key>
 		<integer>0</integer>
 		<key>MinFlips</key>
-		<integer>0</integer>
+		<integer>9</integer>
 	</dict>
 	<dict>
 		<key>Sprite</key>
@@ -98,7 +98,7 @@
 		<key>Restitution</key>
 		<integer>0</integer>
 		<key>MinFlips</key>
-		<integer>0</integer>
+		<integer>13</integer>
 	</dict>
 	<dict>
 		<key>Sprite</key>
@@ -112,7 +112,7 @@
 		<key>Restitution</key>
 		<integer>2</integer>
 		<key>MinFlips</key>
-		<integer>0</integer>
+		<integer>16</integer>
 	</dict>
 	<dict>
 		<key>Sprite</key>
@@ -126,7 +126,7 @@
 		<key>Restitution</key>
 		<integer>0</integer>
 		<key>MinFlips</key>
-		<integer>0</integer>
+		<integer>20</integer>
 	</dict>
 	<dict>
 		<key>Sprite</key>
@@ -140,7 +140,7 @@
 		<key>Restitution</key>
 		<integer>0</integer>
 		<key>MinFlips</key>
-		<integer>0</integer>
+		<integer>24</integer>
 	</dict>
 	<dict>
 		<key>Sprite</key>
@@ -154,7 +154,7 @@
 		<key>Restitution</key>
 		<integer>3</integer>
 		<key>MinFlips</key>
-		<integer>0</integer>
+		<integer>28</integer>
 	</dict>
 	<dict>
 		<key>Sprite</key>
@@ -168,7 +168,7 @@
 		<key>Restitution</key>
 		<integer>5</integer>
 		<key>MinFlips</key>
-		<integer>0</integer>
+		<integer>30</integer>
 	</dict>
 	<dict>
 		<key>Sprite</key>
@@ -182,7 +182,7 @@
 		<key>Restitution</key>
 		<integer>3</integer>
 		<key>MinFlips</key>
-		<integer>0</integer>
+		<integer>35</integer>
 	</dict>
 	<dict>
 		<key>Sprite</key>
@@ -196,7 +196,7 @@
 		<key>Restitution</key>
 		<integer>0</integer>
 		<key>MinFlips</key>
-		<integer>0</integer>
+		<integer>40</integer>
 	</dict>
 </array>
 </plist>

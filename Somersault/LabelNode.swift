@@ -11,7 +11,7 @@ import SpriteKit
 class LabelNode: SKLabelNode {
     
     convenience init(text: String, fontSize: CGFloat, position: CGPoint, fontColor: UIColor) {
-        self.init(fontNamed: UI_FONT) 
+        self.init(fontNamed: uiFont) 
         self.text = text
         self.fontSize = fontSize
         self.position = position
