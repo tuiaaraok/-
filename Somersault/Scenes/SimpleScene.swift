@@ -9,7 +9,7 @@
 import SpriteKit
 
 class SimpleScene: SKScene {
-
+    
     func changeToSceneBy(nameScene: String, userData: NSMutableDictionary) {
         
         let scene = (nameScene == "GameScene") ? GameScene(size: self.size) : MenuScene(size: self.size)
@@ -20,5 +20,9 @@ class SimpleScene: SKScene {
         scene.userData = userData
         
         self.view?.presentScene(scene, transition: transition)
+    }
+    
+    func playSoundsEffects(_ action: SKAction) {
+        run(action)
     }
 }

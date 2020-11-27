@@ -12,7 +12,7 @@
 		<key>YScale</key>
 		<real>0.4</real>
 		<key>Restitution</key>
-		<integer>4</integer>
+		<integer>0</integer>
 		<key>MinFlips</key>
 		<integer>0</integer>
 	</dict>

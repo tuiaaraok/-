@@ -20,14 +20,15 @@ class GameScene: SimpleScene {
     var didSwipe = false
     var start = CGPoint.zero
     var startTime = TimeInterval()
+    var currentScore = 0
     
     override func didMove(to view: SKView) {
+        
         self.physicsBody?.restitution = 0
         self.backgroundColor = uiBackgroundColor
         
         setupUINodes()
         setupGameNodes()
-       
     }
     
     func setupUINodes() {
@@ -75,7 +76,7 @@ class GameScene: SimpleScene {
     func setupGameNodes() {
         // table node
         let tableNode = SKSpriteNode(imageNamed: "table")
-        tableNode.physicsBody = SKPhysicsBody(rectangleOf: (tableNode.texture?.size())!)
+        tableNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: tableNode.size.width - 40, height: tableNode.size.height - 30))
         tableNode.physicsBody?.affectedByGravity = false
         tableNode.physicsBody?.isDynamic = false
         tableNode.physicsBody?.restitution = 0
@@ -88,8 +89,9 @@ class GameScene: SimpleScene {
         let selectedItem = self.userData?.object(forKey: "item")
        
         itemNode = ItemNode(selectedItem as! Item)
-        itemNode.position = CGPoint(x: self.frame.midX,y: self.frame.minY + itemNode.size.height / 2 + 109)
+//        itemNode.position = CGPoint(x: self.frame.midX,y: self.frame.minY + itemNode.size.height / 2 + 109)
         self.addChild(itemNode)
+        self.resetItem()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -111,10 +113,12 @@ class GameScene: SimpleScene {
             let location = touch.location(in: self)
             
             if backButtonNode.contains(location) {
-                self.changeToSceneBy(nameScene: "MenuScene", userData: NSMutableDictionary.init())
+                SKTAudio.sharedInstance().playSoundEffect(filename: "pop.mp3")
+                changeToSceneBy(nameScene: "MenuScene", userData: NSMutableDictionary.init())
             }
             
             if resetButtonNode.contains(location) {
+                SKTAudio.sharedInstance().playSoundEffect(filename: "pop.mp3")
                 failedFlip()
             }
             if tutorialNode.contains(location) {
@@ -142,20 +146,23 @@ class GameScene: SimpleScene {
                 if speed >= gameSwipeMinSpeed {
                     // add angular velocity and impulse
                     itemNode.physicsBody?.angularVelocity = gameAngularVelocity
-                    itemNode.physicsBody?.applyImpulse(CGVector(dx: 0, dy: distance * 1.75))
+                    itemNode.physicsBody?.applyImpulse(CGVector(dx: 0, dy: distance * CGFloat(1.75)))
                     didSwipe = true
                 }
             }
         }
-        
     }
     
     func failedFlip() {
-        self.resetItem()
+        SKTAudio.sharedInstance().playSoundEffect(filename: "fail.mp3")
+        currentScore = 0
+        updateScore()
+        resetItem()
     }
     
     func resetItem() {
-        itemNode.position = CGPoint(x: self.frame.midX,y: self.frame.minY + itemNode.size.height / 2 + 109)
+        SKTAudio.sharedInstance().playSoundEffect(filename: "pop.mp3")
+        itemNode.position = CGPoint(x: self.frame.midX,y: self.frame.minY + itemNode.size.height / 2 + 50)
         itemNode.physicsBody?.angularVelocity = 0
         itemNode.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
         itemNode.speed = 0
@@ -164,6 +171,57 @@ class GameScene: SimpleScene {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
+        
+        checkIfSuccessfulFlip()
+    }
+    
+    func checkIfSuccessfulFlip() {
+       if (itemNode.position.x <= 0 || itemNode.position.x >= self.frame.size.width || itemNode.position.y <= 0) {
+            self.failedFlip()
+        }
+             
+        if didSwipe && itemNode.physicsBody!.isResting {
+            let itemRotation = abs(Float(itemNode.zRotation))
+                 
+            if itemRotation > 0 && itemRotation < 0.05 {
+                self.successFlip()
+            } else {
+                self.failedFlip()
+            }
+        }
+    }
+    
+    func successFlip() {
+        SKTAudio.sharedInstance().playSoundEffect(filename: "win.mp3")
+        updateFlips()
+        currentScore += 1
+        updateScore()
+        resetItem()
+    }
+    
+    func updateScore() {
+        scoreLabelNode.text = "\(currentScore)"
+        
+        let localHighScore = UserDefaults.standard.integer(forKey: "localHighScore")
+        
+        if currentScore > localHighScore {
+            highScoreLabelNode.isHidden = false
+            let fadeAction = SKAction.fadeAlpha(to: 0, duration: 1.0)
+            highScoreLabelNode.run(fadeAction) {
+                self.highScoreLabelNode.isHidden = true
+            }
+            
+            UserDefaults.standard.set(currentScore, forKey: "localHighScore")
+            UserDefaults.standard.synchronize()
+            
+        }
+    }
+    
+    func updateFlips() {
+        var flips = UserDefaults.standard.integer(forKey: "flips")
+        
+        flips += 1
+        UserDefaults.standard.set(flips, forKey: "flips")
+        UserDefaults.standard.synchronize()
     }
 }

@@ -25,13 +25,17 @@ class MenuScene: SimpleScene {
     var items = [Item]()
     var selectedItemIndex = 0
     var totalItems = 0
-    
 
     override func didMove(to view: SKView) {
         self.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
         
         items = ItemController.readItems()
         totalItems = items.count
+        
+        highScore = UserDefaults.standard.integer(forKey: "localHighScore")
+        flipsAmount = UserDefaults.standard.integer(forKey: "flips")
+        
+        SKTAudio.sharedInstance().playBackgroundMusic(filename: "backgroundMusic.mp3")
         
         setupUI()
     }
@@ -180,10 +184,12 @@ class MenuScene: SimpleScene {
             
             // play button is pressed
             if playButtonNode.contains(location) {
-                self.startGame()
+                SKTAudio.sharedInstance().playSoundEffect(filename: "pop.mp3")
+                startGame()
             }
             
             if leftButtonNode.contains(location) {
+                SKTAudio.sharedInstance().playSoundEffect(filename: "pop.mp3")
                 let itemIndex = selectedItemIndex - 1
                 if itemIndex >= 0 {
                     updateByIndex(itemIndex)
@@ -191,6 +197,7 @@ class MenuScene: SimpleScene {
             }
             
             if rightButtonNode.contains(location) {
+                SKTAudio.sharedInstance().playSoundEffect(filename: "pop.mp3")
                 let nextIndex = selectedItemIndex + 1
                 if nextIndex < totalItems {
                     updateByIndex(nextIndex)
