@@ -15,7 +15,8 @@ class GameScene: SimpleScene {
     var backButtonNode = SKSpriteNode()
     var resetButtonNode = SKSpriteNode()
     var tutorialNode = SKSpriteNode()
-    var itemNode = SKSpriteNode()
+    var cakeNode = SKSpriteNode()
+    var tableNode = SKSpriteNode()
     
     var didSwipe = false
     var start = CGPoint.zero
@@ -75,23 +76,27 @@ class GameScene: SimpleScene {
     
     func setupGameNodes() {
         // table node
-        let tableNode = SKSpriteNode(imageNamed: "table")
-        tableNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: tableNode.size.width - 40, height: tableNode.size.height - 30))
-        tableNode.physicsBody?.affectedByGravity = false
-        tableNode.physicsBody?.isDynamic = false
-        tableNode.physicsBody?.restitution = 0
-        tableNode.xScale = 1.3
-        tableNode.yScale = 1.3
+        
+//        let tableNode = SKSpriteNode(imageNamed: "table")
+//        tableNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: tableNode.size.width - 40, height: tableNode.size.height - 30))
+//        tableNode.physicsBody?.affectedByGravity = false
+//        tableNode.physicsBody?.isDynamic = false
+//        tableNode.physicsBody?.restitution = 0
+//        tableNode.xScale = 1.3
+//        tableNode.yScale = 1.3
+        
+        let selectedTable = self.userData?.object(forKey: "table")
+        tableNode = TableNode(selectedTable as! Table)
         tableNode.position = CGPoint(x: self.frame.midX, y: self.frame.minY - 30)
         self.addChild(tableNode)
         
-        // Item node
-        let selectedItem = self.userData?.object(forKey: "item")
-       
-        itemNode = ItemNode(selectedItem as! Item)
-//        itemNode.position = CGPoint(x: self.frame.midX,y: self.frame.minY + itemNode.size.height / 2 + 109)
-        self.addChild(itemNode)
-        self.resetItem()
+        let selectedCake = self.userData?.object(forKey: "cake")
+        cakeNode = CakeNode(selectedCake as! Cake)
+        cakeNode.position = CGPoint(x: self.frame.midX,
+                                    y: self.frame.minY + cakeNode.size.height / 2 + 50)
+
+        self.addChild(cakeNode)
+        self.resetCake()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -106,7 +111,6 @@ class GameScene: SimpleScene {
         start = location
         startTime = touch!.timestamp
     }
-    
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
@@ -128,7 +132,6 @@ class GameScene: SimpleScene {
             }
         }
         
-        // Item fliping logic
         if !didSwipe {
             let touch = touches.first
             let location = touch?.location(in: self)
@@ -144,9 +147,9 @@ class GameScene: SimpleScene {
                 let speed = distance / time
                 
                 if speed >= gameSwipeMinSpeed {
-                    // add angular velocity and impulse
-                    itemNode.physicsBody?.angularVelocity = gameAngularVelocity
-                    itemNode.physicsBody?.applyImpulse(CGVector(dx: 0, dy: distance * CGFloat(1.75)))
+                    cakeNode.physicsBody?.angularVelocity = gameAngularVelocity
+                    cakeNode.physicsBody?.applyImpulse(CGVector(dx: 0,
+                                                                dy: distance * CGFloat(1.75)))
                     didSwipe = true
                 }
             }
@@ -157,16 +160,17 @@ class GameScene: SimpleScene {
         SKTAudio.sharedInstance().playSoundEffect(filename: "fail.mp3")
         currentScore = 0
         updateScore()
-        resetItem()
+        resetCake()
     }
     
-    func resetItem() {
+    func resetCake() {
         SKTAudio.sharedInstance().playSoundEffect(filename: "pop.mp3")
-        itemNode.position = CGPoint(x: self.frame.midX,y: self.frame.minY + itemNode.size.height / 2 + 50)
-        itemNode.physicsBody?.angularVelocity = 0
-        itemNode.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-        itemNode.speed = 0
-        itemNode.zRotation = 0
+        cakeNode.position = CGPoint(x: self.frame.midX,
+                                    y: self.frame.minY + cakeNode.size.height / 2 + 50)
+        cakeNode.physicsBody?.angularVelocity = 0
+        cakeNode.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+        cakeNode.speed = 0
+        cakeNode.zRotation = 0
         didSwipe = false
     }
     
@@ -176,12 +180,12 @@ class GameScene: SimpleScene {
     }
     
     func checkIfSuccessfulFlip() {
-       if (itemNode.position.x <= 0 || itemNode.position.x >= self.frame.size.width || itemNode.position.y <= 0) {
+       if (cakeNode.position.x <= 0 || cakeNode.position.x >= self.frame.size.width || cakeNode.position.y <= 0) {
             self.failedFlip()
         }
              
-        if didSwipe && itemNode.physicsBody!.isResting {
-            let itemRotation = abs(Float(itemNode.zRotation))
+        if didSwipe && cakeNode.physicsBody!.isResting {
+            let itemRotation = abs(Float(cakeNode.zRotation))
                  
             if itemRotation > 0 && itemRotation < 0.05 {
                 self.successFlip()
@@ -196,7 +200,7 @@ class GameScene: SimpleScene {
         updateFlips()
         currentScore += 1
         updateScore()
-        resetItem()
+        resetCake()
     }
     
     func updateScore() {

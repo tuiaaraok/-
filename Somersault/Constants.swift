@@ -12,7 +12,7 @@ import UIKit
 let uiBackgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
 
 // Font
-let uiFont = "Baskerville-SemiBold"
+let uiFont = "Rosalinda Regular"
 
 // game setting
 let gameSwipeMinDistance: CGFloat = 20

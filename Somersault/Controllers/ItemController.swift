@@ -10,25 +10,38 @@ import Foundation
 
 class ItemController {
     
-    class func readItems() -> [Item] {
+    class func readCakes() -> [Cake] {
         
-        var items = [Item]()
+        var items = [Cake]()
         
-        if let path = Bundle.main.path(forResource: "Items", ofType: "plist"), let plistArray = NSArray(contentsOfFile: path) as? [[String : Any]] {
+        if let path = Bundle.main.path(forResource: "Cakes", ofType: "plist"), let plistArray = NSArray(contentsOfFile: path) as? [[String : Any]] {
             for dic in plistArray {
-                let item = Item(itemDictionary: dic as NSDictionary)
+                let item = Cake(itemDictionary: dic as NSDictionary)
                 items.append(item)
             }
         }
         return items
     }
     
-    class func saveSelectedItem(_ index: Int) {
-        UserDefaults.standard.set(index, forKey: "SelectedItem")
+    class func saveSelected(_ index: Int, key: String) {
+        UserDefaults.standard.set(index, forKey: key)
         UserDefaults.standard.synchronize()
     }
     
-    class func getSaveItemIndex() -> Int {
-        return UserDefaults.standard.integer(forKey: "SelectedItem")
+    class func getSaveIndex(key: String) -> Int {
+        return UserDefaults.standard.integer(forKey: key)
+    }
+    
+    class func readTables() -> [Table] {
+        
+        var tables = [Table]()
+               
+        if let path = Bundle.main.path(forResource: "Tables", ofType: "plist"), let plistArray = NSArray(contentsOfFile: path) as? [[String : Any]] {
+            for dic in plistArray {
+                let table = Table(tableDictionary: dic as NSDictionary)
+                tables.append(table)
+            }
+        }
+        return tables
     }
 }
