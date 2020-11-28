@@ -6,7 +6,6 @@
 //  Copyright © 2020 Туйаара Оконешникова. All rights reserved.
 //
 
-import UIKit
 import SpriteKit
 
 class TableNode: SKSpriteNode {
@@ -14,13 +13,13 @@ class TableNode: SKSpriteNode {
         let texture = SKTexture(imageNamed: table.Sprite!)
         super.init(texture: texture, color: .clear, size: texture.size())
         
-        self.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: self.size.width - 40, height: self.size.height - 30))
+        self.xScale = 1.3
+        self.yScale = 1.3
+        self.physicsBody = SKPhysicsBody(texture: self.texture!, size: CGSize(width: self.size.width, height: self.size.height))
         self.physicsBody?.affectedByGravity = false
         self.physicsBody?.isDynamic = false
         self.physicsBody?.restitution = 0
         self.zPosition = 1
-        self.xScale = 1.3
-        self.yScale = 1.3
     }
     
     required init?(coder aDecoder: NSCoder) {

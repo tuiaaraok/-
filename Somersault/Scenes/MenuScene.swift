@@ -14,6 +14,7 @@ class MenuScene: SimpleScene {
     var playButtonNode = SKSpriteNode()
     var tableNode = SKSpriteNode()
     var cakeNode = SKSpriteNode()
+    var bgNode = SKSpriteNode()
     var leftCakeButtonNode = SKSpriteNode()
     var rightCakeButtonNode = SKSpriteNode()
     var leftTableButtonNode = SKSpriteNode()
@@ -25,25 +26,33 @@ class MenuScene: SimpleScene {
     var unlockLabelNodeForCake = SKLabelNode()
     var lockBowForTable = SKSpriteNode()
     var unlockLabelNodeForTable = SKLabelNode()
+    var lockBowForBg = SKSpriteNode()
+    var unlockLabelNodeForBg = SKLabelNode()
     
     // variables
     var highScore = 0
     var flipsAmount = 0
     var cakes = [Cake]()
     var tables = [Table]()
+    var backgrounds = [Background]()
     var selectedCakeIndex = 0
     var selectedTableIndex = 0
+    var selectedBgIndex = 0
     var totalCakes = 0
     var totalTables = 0
+    var totalBgs = 0
 
     override func didMove(to view: SKView) {
         self.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
         
         cakes = ItemController.readCakes()
         tables = ItemController.readTables()
+        backgrounds = ItemController.readBg()
        
         totalCakes = cakes.count
         totalTables = tables.count
+        totalBgs = backgrounds.count
+        
         
         highScore = UserDefaults.standard.integer(forKey: "localHighScore")
         flipsAmount = UserDefaults.standard.integer(forKey: "flips")
@@ -53,31 +62,35 @@ class MenuScene: SimpleScene {
         setupUI()
     }
     
+    // MARK: - Setup UI
+    
     func setupUI() {
         
         // High score
-        let highScoreLabelNode = LabelNode(text: "High score", fontSize: 40, position: CGPoint(x: self.frame.midX - 100, y: self.frame.maxY - 215), fontColor: .black)
+        let highScoreLabelNode = LabelNode(text: "High score", fontSize: 40, position: CGPoint(x: self.frame.midX - 100, y: self.frame.maxY - 150))
         highScoreLabelNode.zPosition = 1
         self.addChild(highScoreLabelNode)
         
         // High score amount
-        let highScoreAmountLabelNode = LabelNode(text: String(highScore) , fontSize: 70, position: CGPoint(x: self.frame.midX - 100, y: self.frame.maxY - 300), fontColor: .black)
+        let highScoreAmountLabelNode = LabelNode(text: String(highScore) , fontSize: 70, position: CGPoint(x: self.frame.midX - 100, y: self.frame.maxY - 250))
         highScoreAmountLabelNode.zPosition = 1
         self.addChild(highScoreAmountLabelNode)
         
         // total flips label node
-        let totalFlipsLabelNode = LabelNode(text: "Amount", fontSize: 40, position: CGPoint(x: self.frame.midX + 100, y: self.frame.maxY - 215), fontColor: .black)
+        let totalFlipsLabelNode = LabelNode(text: "Amount", fontSize: 40, position: CGPoint(x: self.frame.midX + 100, y: self.frame.maxY - 150))
         totalFlipsLabelNode.zPosition = 1
         self.addChild(totalFlipsLabelNode)
         
         // flips amount
-        let totalFlipsAmountLabelNode = LabelNode(text: String(flipsAmount), fontSize: 70, position: CGPoint(x: self.frame.midX + 100, y: self.frame.maxY - 300), fontColor: .black)
+        let totalFlipsAmountLabelNode = LabelNode(text: String(flipsAmount), fontSize: 70, position: CGPoint(x: self.frame.midX + 100, y: self.frame.maxY - 250))
         totalFlipsAmountLabelNode.zPosition = 1
         self.addChild(totalFlipsAmountLabelNode)
         
         // play button
-        playButtonNode = ButtonNode(imageNode: "play", position: CGPoint(x: self.frame.midX, y: self.frame.midY - 15), xScale: 1.4, yScale: 1.4)
+        playButtonNode = ButtonNode(imageNode: "play", position: CGPoint(x: self.frame.midX, y: self.frame.midY + 15), xScale: 1.4, yScale: 1.4)
         self.addChild(playButtonNode)
+        
+        // MARK: - Table, cake and background nodes
         
         // Table node
         selectedTableIndex = ItemController.getSaveIndex(key: "SelectedTable")
@@ -93,10 +106,20 @@ class MenuScene: SimpleScene {
         cakeNode.zPosition = 10
         self.addChild(cakeNode)
         
+        // Bg node
+        selectedBgIndex = ItemController.getSaveIndex(key: "SelectedBg")
+        print(backgrounds)
+        let selectedBg = backgrounds[selectedBgIndex]
+        bgNode = SKSpriteNode(imageNamed: selectedBg.Sprite!)
+        bgNode.zPosition = -1
+        self.addChild(bgNode)
+        
         // pic node
         let pic = ButtonNode(imageNode: "painting", position: CGPoint(x: self.frame.midX, y: self.frame.maxY - 60), xScale: 1.2, yScale: 1.2)
-        pic.zPosition = -1
-        self.addChild(pic)
+        pic.zPosition = 0
+//        self.addChild(pic)
+        
+        // MARK: - Left and right buttons
         
         // left cake button
         leftCakeButtonNode = ButtonNode(imageNode: "left", position: CGPoint(x: self.frame.midX + leftCakeButtonNode.size.width - 130, y: self.frame.minY - leftCakeButtonNode.size.height + 170), xScale: 0.3, yScale: 0.3)
@@ -107,16 +130,6 @@ class MenuScene: SimpleScene {
         rightCakeButtonNode = ButtonNode(imageNode: "right", position: CGPoint(x: self.frame.midX + rightCakeButtonNode.size.width + 130, y: self.frame.minY - rightCakeButtonNode.size.height + 170), xScale: 0.3, yScale: 0.3)
         hideButton(buttonNode: rightCakeButtonNode, state: true)
         self.addChild(rightCakeButtonNode)
-        
-//        // left bg button
-//        leftBgButtonNode = ButtonNode(imageNode: "left", position: CGPoint(x: self.frame.midX + leftBgButtonNode.size.width - 130, y: self.frame.minY - leftBgButtonNode.size.height + 300), xScale: 0.3, yScale: 0.3)
-//        hideButton(buttonNode: leftBgButtonNode, state: false)
-//        self.addChild(leftBgButtonNode)
-//
-//        // right bg button
-//        rightBgButtonNode = ButtonNode(imageNode: "right", position: CGPoint(x: self.frame.midX + rightBgButtonNode.size.width + 130, y: self.frame.minY - rightBgButtonNode.size.height + 300), xScale: 0.3, yScale: 0.3)
-//        hideButton(buttonNode: rightBgButtonNode, state: true)
-//        self.addChild(rightBgButtonNode)
         
         // left table button
         leftTableButtonNode = ButtonNode(imageNode: "left", position: CGPoint(x: self.frame.midX + leftTableButtonNode.size.width - 170, y: self.frame.minY - leftTableButtonNode.size.height + 50), xScale: 0.3, yScale: 0.3)
@@ -130,98 +143,140 @@ class MenuScene: SimpleScene {
         hideButton(buttonNode: rightTableButtonNode, state: true)
         self.addChild(rightTableButtonNode)
         
+        // left bg button
+        leftBgButtonNode = ButtonNode(imageNode: "left", position: CGPoint(x: self.frame.midX + leftBgButtonNode.size.width - 130, y: self.frame.minY - leftBgButtonNode.size.height + 300), xScale: 0.3, yScale: 0.3)
+        hideButton(buttonNode: leftBgButtonNode, state: false)
+        self.addChild(leftBgButtonNode)
+        
+                // right bg button
+        rightBgButtonNode = ButtonNode(imageNode: "right", position: CGPoint(x: self.frame.midX + rightBgButtonNode.size.width + 130, y: self.frame.minY - rightBgButtonNode.size.height + 300), xScale: 0.3, yScale: 0.3)
+        hideButton(buttonNode: rightBgButtonNode, state: true)
+        self.addChild(rightBgButtonNode)
+        
+        // MARK: - Lock elements
+        
         // Lock node for cake
-        lockBowForCake = ButtonNode(imageNode: "lock", position: CGPoint(x: self.frame.midX + cakeNode.size.width * 0.25, y: self.frame.minY + cakeNode.size.height / 2 + 100), xScale: 0.25, yScale: 0.25)
+        lockBowForCake = ButtonNode(imageNode: "lock", position: CGPoint(x: 0, y: 0), xScale: 0.25, yScale: 0.25)
         lockBowForCake.zPosition = 25
         lockBowForCake.zRotation = 0.3
         self.addChild(lockBowForCake)
         
         // Lock node for table
-        lockBowForTable = ButtonNode(imageNode: "lock", position: CGPoint(x: self.frame.midX + tableNode.size.width * 0.25, y: self.frame.minY + tableNode.size.height / 2 + 100), xScale: 0.25, yScale: 0.25)
+        lockBowForTable = ButtonNode(imageNode: "lock", position: CGPoint(x: 0, y: 0), xScale: 0.25, yScale: 0.25)
         lockBowForTable.zPosition = 25
         lockBowForTable.zRotation = 0.3
         self.addChild(lockBowForTable)
+        
+        // Lock node for bg
+        lockBowForBg = ButtonNode(imageNode: "lock", position: CGPoint(x: 0, y: 0), xScale: 0.25, yScale: 0.25)
+        lockBowForBg.zPosition = 25
+        lockBowForBg.zRotation = 0.3
+        self.addChild(lockBowForBg)
        
         
         // Unlock label for cake
-        unlockLabelNodeForCake = LabelNode(text: "0", fontSize: 80, position: CGPoint(x: 0, y: -unlockLabelNodeForCake.frame.size.height + 25), fontColor: .black)
+        unlockLabelNodeForCake = LabelNode(text: "0", fontSize: 80, position: CGPoint(x: 0, y: 0))
         unlockLabelNodeForCake.zPosition = 30
         unlockLabelNodeForCake.zRotation = 0.78
         lockBowForCake.addChild(unlockLabelNodeForCake)
         
         // Unlock label for table
-        unlockLabelNodeForTable = LabelNode(text: "0", fontSize: 80, position: CGPoint(x: 0, y: -unlockLabelNodeForCake.frame.size.height + 25), fontColor: .black)
+        unlockLabelNodeForTable = LabelNode(text: "0", fontSize: 80, position: CGPoint(x: 0, y: 0))
         unlockLabelNodeForTable.zPosition = 30
         unlockLabelNodeForTable.zRotation = 0.78
         lockBowForTable.addChild(unlockLabelNodeForTable)
         
+        // Unlock label for bg
+        unlockLabelNodeForBg = LabelNode(text: "0", fontSize: 80, position: CGPoint(x: 0, y: 0))
+        unlockLabelNodeForBg.zPosition = 30
+        unlockLabelNodeForBg.zRotation = 0.78
+        lockBowForBg.addChild(unlockLabelNodeForBg)
+        
         // update selected item
         updateSelectedCake(selectedCake)
         updateSelectedTable(selectedTable)
+        updateSelectedBg(selectedBg)
         
         pulseLockNode(lockBowForCake)
         pulseLockNode(lockBowForTable)
+        pulseLockNode(lockBowForBg)
         
     }
     
     func hideButton(buttonNode: SKSpriteNode, state: Bool) {
-        if !state {
-            buttonNode.isHidden = true
-        } else {
-            buttonNode.isHidden = false
+        var buttonColor = #colorLiteral(red: 0.3411764706, green: 0.3529411765, blue: 0.4431372549, alpha: 0.2024026113)
+               
+        if state {
+            buttonColor = #colorLiteral(red: 0.3411764706, green: 0.3529411765, blue: 0.4431372549, alpha: 1)
         }
+
+        buttonNode.color = buttonColor
+        buttonNode.colorBlendFactor = 1
     }
+    
+    // MARK: - Update selected items
     
     func updateSelectedCake (_ cake: Cake) {
         
         // update to the selected item
-        let unlockFlips = Int(truncating: cake.MinFlips!) - highScore
-        let unlocked = unlockFlips <= 0
         
-        lockBowForCake.isHidden = unlocked
-        unlockLabelNodeForCake.isHidden = unlocked
-        
-        cakeNode.texture = SKTexture(imageNamed: cake.Sprite!)
+        updateLockElements(cake, lockBowForCake, unlockLabelNodeForCake, cakeNode)
         
         cakeNode.size = CGSize(width: cakeNode.texture!.size().width * CGFloat(cake.XScale!.floatValue), height: cakeNode.texture!.size().height * CGFloat(cake.YScale!.floatValue))
         
         cakeNode.position = CGPoint(x: self.frame.midX,
-                                    y: self.frame.minY + cakeNode.size.height / 2 + 109)
+                                    y: self.frame.minY + cakeNode.size.height / 2 + 113)
         
         lockBowForCake.position = CGPoint(x: self.frame.midX + cakeNode.size.width * 0.25 + 20,
                                         y: self.frame.minY + cakeNode.size.height / 2 + 130)
         unlockLabelNodeForCake.text = "\(cake.MinFlips!.intValue)"
-        unlockLabelNodeForCake.position = CGPoint(x: unlockLabelNodeForCake.frame.size.height + 85,
-                                           y: -unlockLabelNodeForCake.frame.size.height - 10)
+        unlockLabelNodeForCake.position = CGPoint(x: unlockLabelNodeForCake.frame.size.height + 60,
+                                           y: -unlockLabelNodeForCake.frame.size.height + 25)
         
         updateCakeArrowsState()
-        
     }
     
     func updateSelectedTable(_ table: Table) {
+
+        updateLockElements(table, lockBowForTable, unlockLabelNodeForTable, tableNode)
            
-           // update to the selected item
-           let unlockFlips = Int(truncating: table.MinFlips!) - highScore
-           let unlocked = unlockFlips <= 0
+        tableNode.size = CGSize(width: tableNode.texture!.size().width * CGFloat(table.XScale!.floatValue), height: tableNode.texture!.size().height * CGFloat(table.YScale!.floatValue))
            
-           lockBowForTable.isHidden = unlocked
-           unlockLabelNodeForTable.isHidden = unlocked
+        tableNode.position = CGPoint(x: self.frame.midX, y: self.frame.minY - 30 + CGFloat(table.YPosition!.floatValue))
            
-           tableNode.texture = SKTexture(imageNamed: table.Sprite!)
-           
-           tableNode.size = CGSize(width: tableNode.texture!.size().width * CGFloat(table.XScale!.floatValue), height: tableNode.texture!.size().height * CGFloat(table.YScale!.floatValue))
-           
-           tableNode.position = CGPoint(x: self.frame.midX, y: self.frame.minY - 30 + CGFloat(table.YPosition!.floatValue))
-           
-           lockBowForTable.position = CGPoint(x: self.frame.midX + tableNode.size.width * 0.25 + 20,
+        lockBowForTable.position = CGPoint(x: self.frame.midX + tableNode.size.width * 0.25 + 20,
                                            y: self.frame.minY + tableNode.size.height / 2 - 100)
-           unlockLabelNodeForTable.text = "\(table.MinFlips!.intValue)"
-           unlockLabelNodeForTable.position = CGPoint(x: unlockLabelNodeForTable.frame.size.height + 60,
-                                              y: -unlockLabelNodeForTable.frame.size.height + 25)
+        unlockLabelNodeForTable.position = CGPoint(x: unlockLabelNodeForTable.frame.size.height + 60, y: -unlockLabelNodeForTable.frame.size.height + 25)
+        unlockLabelNodeForTable.text = "\(table.MinFlips!.intValue)"
            
-           updateTableArrowsState()
+        updateTableArrowsState()
+    }
+    
+    func updateSelectedBg(_ bg: Background) {
+        
+        updateLockElements(bg, lockBowForBg, unlockLabelNodeForBg, bgNode)
+              
+        bgNode.size = CGSize(width: bgNode.texture!.size().width * CGFloat(bg.XScale!.floatValue), height: bgNode.texture!.size().height * CGFloat(bg.YScale!.floatValue))
+              
+        bgNode.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+              
+        lockBowForBg.position = CGPoint(x: playButtonNode.frame.maxX - 20,
+                                              y: playButtonNode.frame.minY - 20)
+        unlockLabelNodeForBg.position = CGPoint(x: unlockLabelNodeForBg.frame.size.height + 60, y: -unlockLabelNodeForBg.frame.size.height + 25)
+        unlockLabelNodeForBg.text = "\(bg.MinFlips!.intValue)"
+              
+        updateBgArrowsState()
+    }
+  
+    func updateLockElements(_ item: Item, _ bow: SKSpriteNode, _ label: SKLabelNode, _ itemNode: SKSpriteNode) {
+        let unlockFlips = Int(truncating: item.MinFlips!) - highScore
+        let unlocked = unlockFlips <= 0
+
+        bow.isHidden = unlocked
+        label.isHidden = unlocked
            
-       }
+        itemNode.texture = SKTexture(imageNamed: item.Sprite!)
+    }
     
     func updateCakeArrowsState() {
         hideButton(buttonNode: leftCakeButtonNode,
@@ -237,6 +292,15 @@ class MenuScene: SimpleScene {
                    state: selectedTableIndex != totalTables - 1)
     }
     
+    func updateBgArrowsState() {
+        hideButton(buttonNode: leftBgButtonNode,
+                   state: Bool(truncating: selectedBgIndex as NSNumber))
+        hideButton(buttonNode: rightBgButtonNode,
+                   state: selectedBgIndex != totalBgs - 1)
+    }
+    
+    // MARK: - Touches began
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             
@@ -247,10 +311,15 @@ class MenuScene: SimpleScene {
                 
                 selectedCakeIndex = ItemController.getSaveIndex(key: "SelectedCake")
                 selectedTableIndex = ItemController.getSaveIndex(key: "SelectedTable")
-                let selectedItem = cakes[selectedCakeIndex]
-                let selectedTable = tables[selectedTableIndex]
+                selectedBgIndex = ItemController.getSaveIndex(key: "SelectedBg")
                 
-                if flipsAmount >= selectedItem.MinFlips!.intValue && flipsAmount >= selectedTable.MinFlips!.intValue {
+                let selectedCake = cakes[selectedCakeIndex]
+                let selectedTable = tables[selectedTableIndex]
+                let selectedBg = backgrounds[selectedBgIndex]
+                
+                if flipsAmount >= selectedCake.MinFlips!.intValue &&
+                    flipsAmount >= selectedTable.MinFlips!.intValue &&
+                    flipsAmount >= selectedBg.MinFlips!.intValue {
                     SKTAudio.sharedInstance().playSoundEffect(filename: "pop.mp3")
                     startGame()
                 } else {
@@ -289,8 +358,26 @@ class MenuScene: SimpleScene {
                     updateByTableIndex(nextIndex)
                 }
             }
+            
+            if leftBgButtonNode.contains(location) {
+                SKTAudio.sharedInstance().playSoundEffect(filename: "pop.mp3")
+                let bgIndex = selectedBgIndex - 1
+                if bgIndex >= 0 {
+                    updateByBgIndex(bgIndex)
+                }
+            }
+                      
+            if rightBgButtonNode.contains(location) {
+                SKTAudio.sharedInstance().playSoundEffect(filename: "pop.mp3")
+                let nextIndex = selectedBgIndex + 1
+                if nextIndex < totalBgs {
+                    updateByBgIndex(nextIndex)
+                }
+            }
         }
     }
+    
+    // MARK: - Update index
     
     func updateByCakeIndex(_ index: Int) {
         let cake = cakes[index]
@@ -306,6 +393,15 @@ class MenuScene: SimpleScene {
         ItemController.saveSelected(selectedTableIndex, key: "SelectedTable")
     }
     
+    func updateByBgIndex(_ index: Int) {
+        let bg = backgrounds[index]
+        selectedBgIndex = index
+        updateSelectedBg(bg)
+        ItemController.saveSelected(selectedBgIndex, key: "SelectedBg")
+    }
+    
+    // MARK: Pulse animation for lock elements
+    
     func pulseLockNode(_ node: SKSpriteNode) {
         let scaleDown = SKAction.scale(to: 0.178, duration: 0.5)
         let scaleUp = SKAction.scale(to: 0.13, duration: 0.5)
@@ -316,7 +412,8 @@ class MenuScene: SimpleScene {
 
     func startGame () {
         let userData: NSMutableDictionary = ["cake" : cakes[selectedCakeIndex]]
-       userData["table"] = tables[selectedTableIndex]
+        userData["table"] = tables[selectedTableIndex]
+        userData["bg"] = backgrounds[selectedBgIndex]
         changeToSceneBy(nameScene: "GameScene", userData: userData)
     }
 }

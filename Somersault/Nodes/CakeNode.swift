@@ -14,14 +14,15 @@ class CakeNode: SKSpriteNode {
         let texture = SKTexture(imageNamed: item.Sprite!)
         super.init(texture: texture, color: .clear, size: texture.size())
         
-        self.physicsBody = SKPhysicsBody(texture: self.texture!, size: texture.size())
         self.xScale = CGFloat(item.XScale!.floatValue)
         self.yScale = CGFloat(item.YScale!.floatValue)
+        self.physicsBody = SKPhysicsBody(texture: self.texture!, size: CGSize(width: self.size.width, height: self.size.height))
         self.physicsBody?.isDynamic = true
         self.physicsBody?.allowsRotation = true
         self.physicsBody?.angularDamping = 0.25
         self.physicsBody?.mass = CGFloat(item.Mass!.doubleValue)
         self.physicsBody?.restitution = CGFloat(item.Restitution!.doubleValue)
+        self.zPosition = 1
     }
     
     required init?(coder aDecoder: NSCoder) {

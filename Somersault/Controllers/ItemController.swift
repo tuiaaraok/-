@@ -11,9 +11,7 @@ import Foundation
 class ItemController {
     
     class func readCakes() -> [Cake] {
-        
         var items = [Cake]()
-        
         if let path = Bundle.main.path(forResource: "Cakes", ofType: "plist"), let plistArray = NSArray(contentsOfFile: path) as? [[String : Any]] {
             for dic in plistArray {
                 let item = Cake(itemDictionary: dic as NSDictionary)
@@ -33,9 +31,7 @@ class ItemController {
     }
     
     class func readTables() -> [Table] {
-        
         var tables = [Table]()
-               
         if let path = Bundle.main.path(forResource: "Tables", ofType: "plist"), let plistArray = NSArray(contentsOfFile: path) as? [[String : Any]] {
             for dic in plistArray {
                 let table = Table(tableDictionary: dic as NSDictionary)
@@ -43,5 +39,16 @@ class ItemController {
             }
         }
         return tables
+    }
+    
+    class func readBg() -> [Background] {
+        var backgrounds = [Background]()
+        if let path = Bundle.main.path(forResource: "Backgrounds", ofType: "plist"), let plistArray = NSArray(contentsOfFile: path) as? [[String : Any]] {
+            for dic in plistArray {
+                let bg = Background(bgDictionary: dic as NSDictionary)
+                backgrounds.append(bg)
+            }
+        }
+        return backgrounds
     }
 }

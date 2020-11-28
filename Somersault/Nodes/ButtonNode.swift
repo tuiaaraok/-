@@ -10,11 +10,11 @@ import SpriteKit
 
 class ButtonNode: SKSpriteNode {
 
-    init(imageNode: String, position: CGPoint, xScale: CGFloat, yScale: CGFloat) {
+    init(imageNode: String, position: CGPoint?, xScale: CGFloat, yScale: CGFloat) {
         
         let texture = SKTexture(imageNamed: imageNode)
         super.init(texture: texture, color: UIColor.clear, size: texture.size())
-        self.position = position
+        self.position = position ?? CGPoint(x: 0, y: 0)
         self.xScale = xScale
         self.yScale = yScale
     }

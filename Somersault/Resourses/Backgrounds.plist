@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>Sprite</key>
+		<string>bg0</string>
+		<key>MinFlips</key>
+		<integer>0</integer>
+		<key>XScale</key>
+		<integer>3</integer>
+		<key>YScale</key>
+		<real>3.5</real>
+	</dict>
+	<dict>
+		<key>Sprite</key>
+		<string>bg1</string>
+		<key>MinFlips</key>
+		<integer>50</integer>
+		<key>XScale</key>
+		<integer>3</integer>
+		<key>YScale</key>
+		<integer>3</integer>
+	</dict>
+	<dict>
+		<key>Sprite</key>
+		<string>bg2</string>
+		<key>MinFlips</key>
+		<integer>60</integer>
+		<key>XScale</key>
+		<real>1.5</real>
+		<key>YScale</key>
+		<real>1.5</real>
+	</dict>
+	<dict>
+		<key>Sprite</key>
+		<string>bg4</string>
+		<key>MinFlips</key>
+		<integer>70</integer>
+		<key>XScale</key>
+		<integer>3</integer>
+		<key>YScale</key>
+		<integer>3</integer>
+	</dict>
+	<dict>
+		<key>Sprite</key>
+		<string>bg5</string>
+		<key>MinFlips</key>
+		<integer>80</integer>
+		<key>XScale</key>
+		<real>1.3</real>
+		<key>YScale</key>
+		<real>1.3</real>
+	</dict>
+</array>
+</plist>

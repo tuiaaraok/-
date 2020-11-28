@@ -32,6 +32,8 @@
 		63B5820A256FC56F008FF979 /* SimpleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B58209256FC56F008FF979 /* SimpleScene.swift */; };
 		63B5820C256FF255008FF979 /* CakeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B5820B256FF255008FF979 /* CakeNode.swift */; };
 		63B70F5925719C4200421ABB /* TableNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B70F5825719C4200421ABB /* TableNode.swift */; };
+		63B70F5B25723AAC00421ABB /* Backgrounds.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63B70F5A25723AAC00421ABB /* Backgrounds.plist */; };
+		63B70F5D2572513100421ABB /* BackgroundNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B70F5C2572513100421ABB /* BackgroundNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +64,8 @@
 		63B58209256FC56F008FF979 /* SimpleScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleScene.swift; sourceTree = "<group>"; };
 		63B5820B256FF255008FF979 /* CakeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CakeNode.swift; sourceTree = "<group>"; };
 		63B70F5825719C4200421ABB /* TableNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableNode.swift; sourceTree = "<group>"; };
+		63B70F5A25723AAC00421ABB /* Backgrounds.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Backgrounds.plist; sourceTree = "<group>"; };
+		63B70F5C2572513100421ABB /* BackgroundNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,11 +102,10 @@
 				63B581F3256ED30B008FF979 /* Info.plist */,
 				63B58211257027C2008FF979 /* Resourses */,
 				63B5820D2570274B008FF979 /* Scenes */,
-				63B58205256F9851008FF979 /* Model.swift */,
+				63B70F5E2572921200421ABB /* Model */,
 				63B58210257027A6008FF979 /* Controllers */,
+				63B70F5F25729A5400421ABB /* Helpers */,
 				63B5820E2570277B008FF979 /* Nodes */,
-				635A257B257109EF00401766 /* SKTAudio.swift */,
-				63B58201256EE333008FF979 /* Constants.swift */,
 				63B58212257027D0008FF979 /* UIBuilders */,
 			);
 			path = Somersault;
@@ -123,20 +126,13 @@
 		63B5820E2570277B008FF979 /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
-				63B5820F25702789008FF979 /* UINodes */,
-				63B5820B256FF255008FF979 /* CakeNode.swift */,
-				63B70F5825719C4200421ABB /* TableNode.swift */,
-			);
-			path = Nodes;
-			sourceTree = "<group>";
-		};
-		63B5820F25702789008FF979 /* UINodes */ = {
-			isa = PBXGroup;
-			children = (
 				63B581FD256EDACE008FF979 /* ButtonNode.swift */,
 				63B581FF256EE278008FF979 /* LabelNode.swift */,
+				63B5820B256FF255008FF979 /* CakeNode.swift */,
+				63B70F5825719C4200421ABB /* TableNode.swift */,
+				63B70F5C2572513100421ABB /* BackgroundNode.swift */,
 			);
-			path = UINodes;
+			path = Nodes;
 			sourceTree = "<group>";
 		};
 		63B58210257027A6008FF979 /* Controllers */ = {
@@ -154,7 +150,9 @@
 				63B5821325702801008FF979 /* Sounds */,
 				63B58203256F0450008FF979 /* Cakes.plist */,
 				635A258025718B2A00401766 /* Tables.plist */,
+				63B70F5A25723AAC00421ABB /* Backgrounds.plist */,
 				63B581EE256ED30B008FF979 /* Assets.xcassets */,
+				63B58201256EE333008FF979 /* Constants.swift */,
 				635A257D2571517300401766 /* Rosalinda.ttf */,
 			);
 			path = Resourses;
@@ -178,6 +176,22 @@
 				635A2579257105DD00401766 /* win.mp3 */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		63B70F5E2572921200421ABB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				63B58205256F9851008FF979 /* Model.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		63B70F5F25729A5400421ABB /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				635A257B257109EF00401766 /* SKTAudio.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -238,6 +252,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63B70F5B25723AAC00421ABB /* Backgrounds.plist in Resources */,
 				63B581ED256ED30A008FF979 /* Main.storyboard in Resources */,
 				635A25742570FDB700401766 /* backgroundMusic.mp3 in Resources */,
 				635A2578257105D100401766 /* fail.mp3 in Resources */,
@@ -263,6 +278,7 @@
 				63B70F5925719C4200421ABB /* TableNode.swift in Sources */,
 				63B581E8256ED30A008FF979 /*   GameScene.swift in Sources */,
 				63B58208256F9976008FF979 /* ItemController.swift in Sources */,
+				63B70F5D2572513100421ABB /* BackgroundNode.swift in Sources */,
 				63B581FA256ED969008FF979 /* MenuScene.swift in Sources */,
 				63B58200256EE278008FF979 /* LabelNode.swift in Sources */,
 				63B581EA256ED30A008FF979 /* GameViewController.swift in Sources */,

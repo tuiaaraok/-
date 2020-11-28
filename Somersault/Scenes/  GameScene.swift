@@ -17,6 +17,7 @@ class GameScene: SimpleScene {
     var tutorialNode = SKSpriteNode()
     var cakeNode = SKSpriteNode()
     var tableNode = SKSpriteNode()
+    var bgNode = SKSpriteNode()
     
     var didSwipe = false
     var start = CGPoint.zero
@@ -26,25 +27,24 @@ class GameScene: SimpleScene {
     override func didMove(to view: SKView) {
         
         self.physicsBody?.restitution = 0
-        self.backgroundColor = uiBackgroundColor
         
         setupUINodes()
         setupGameNodes()
     }
     
+    // MARK: - Setup UI nodes
+    
     func setupUINodes() {
         scoreLabelNode = LabelNode(text: "0",
                                    fontSize: 140,
-                                   position: CGPoint(x: self.frame.midX, y: self.frame.midY),
-                                   fontColor: .black)
+                                   position: CGPoint(x: self.frame.midX, y: self.frame.midY))
         scoreLabelNode.zPosition = -1
         self.addChild(scoreLabelNode)
         
         // High score label node
         highScoreLabelNode = LabelNode(text: "score",
                                        fontSize: 32,
-                                       position: CGPoint(x: self.frame.midX, y: self.frame.midY - 40),
-                                       fontColor: .black)
+                                       position: CGPoint(x: self.frame.midX, y: self.frame.midY - 40))
         highScoreLabelNode.isHidden = true
         self.addChild(highScoreLabelNode)
         
@@ -64,38 +64,35 @@ class GameScene: SimpleScene {
         self.addChild(resetButtonNode)
         
         // tutorial button
-        let tutorialFinished = UserDefaults.standard.bool(forKey: "tutorialFinushed")
-        tutorialNode = ButtonNode(imageNode: "",
-                                  position: CGPoint(x: self.frame.midX, y: self.frame.midY),
+        let tutorialFinished = UserDefaults.standard.bool(forKey: "tutorialFinished")
+        tutorialNode = ButtonNode(imageNode: "tutorial",
+                                  position: CGPoint(x: self.frame.midX, y: self.frame.midY + 100),
                                   xScale: 0.55,
                                   yScale: 0.55)
         tutorialNode.zPosition = 5
         tutorialNode.isHidden = tutorialFinished
-//        self.addChild(tutorialNode)
+        self.addChild(tutorialNode)
     }
     
     func setupGameNodes() {
-        // table node
-        
-//        let tableNode = SKSpriteNode(imageNamed: "table")
-//        tableNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: tableNode.size.width - 40, height: tableNode.size.height - 30))
-//        tableNode.physicsBody?.affectedByGravity = false
-//        tableNode.physicsBody?.isDynamic = false
-//        tableNode.physicsBody?.restitution = 0
-//        tableNode.xScale = 1.3
-//        tableNode.yScale = 1.3
         
         let selectedTable = self.userData?.object(forKey: "table")
-        tableNode = TableNode(selectedTable as! Table)
-        tableNode.position = CGPoint(x: self.frame.midX, y: self.frame.minY - 30)
+        let table = selectedTable as! Table
+        tableNode = TableNode(table)
+        tableNode.position = CGPoint(x: self.frame.midX, y: self.frame.minY - 30 + CGFloat(table.YPosition!.floatValue))
         self.addChild(tableNode)
         
         let selectedCake = self.userData?.object(forKey: "cake")
         cakeNode = CakeNode(selectedCake as! Cake)
-        cakeNode.position = CGPoint(x: self.frame.midX,
-                                    y: self.frame.minY + cakeNode.size.height / 2 + 50)
-
         self.addChild(cakeNode)
+        
+        let selectedBg = self.userData?.object(forKey: "bg")
+        let bg = selectedBg as! Background
+        bgNode = BackgroundNode(bg)
+        bgNode.size = CGSize(width: bgNode.texture!.size().width * CGFloat(bg.XScale!.floatValue), height: bgNode.texture!.size().height * CGFloat(bg.YScale!.floatValue))
+        bgNode.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        self.addChild(bgNode)
+    
         self.resetCake()
     }
     
@@ -126,7 +123,7 @@ class GameScene: SimpleScene {
                 failedFlip()
             }
             if tutorialNode.contains(location) {
-                tutorialNode.isHidden = false
+                tutorialNode.isHidden = true
                 UserDefaults.standard.set(true, forKey: "tutorialFinished")
                 UserDefaults.standard.synchronize()
             }
@@ -164,9 +161,7 @@ class GameScene: SimpleScene {
     }
     
     func resetCake() {
-        SKTAudio.sharedInstance().playSoundEffect(filename: "pop.mp3")
-        cakeNode.position = CGPoint(x: self.frame.midX,
-                                    y: self.frame.minY + cakeNode.size.height / 2 + 50)
+        cakeNode.position = CGPoint(x: self.frame.midX, y: self.frame.minY + cakeNode.size.height * 2)
         cakeNode.physicsBody?.angularVelocity = 0
         cakeNode.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
         cakeNode.speed = 0
@@ -217,7 +212,6 @@ class GameScene: SimpleScene {
             
             UserDefaults.standard.set(currentScore, forKey: "localHighScore")
             UserDefaults.standard.synchronize()
-            
         }
     }
     

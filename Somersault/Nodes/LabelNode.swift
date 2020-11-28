@@ -10,11 +10,11 @@ import SpriteKit
 
 class LabelNode: SKLabelNode {
     
-    convenience init(text: String, fontSize: CGFloat, position: CGPoint, fontColor: UIColor) {
+    convenience init(text: String, fontSize: CGFloat, position: CGPoint?) {
         self.init(fontNamed: uiFont) 
         self.text = text
         self.fontSize = fontSize
-        self.position = position
-        self.fontColor = fontColor
+        self.position = position ?? CGPoint(x: 0, y: 0)
+        self.fontColor = .black
     }
 }

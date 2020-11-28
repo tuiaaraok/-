@@ -8,7 +8,14 @@
 
 import Foundation
 
-class Cake {
+protocol Item {
+    var Sprite: String? { get set }
+    var XScale: NSNumber? { get set }
+    var YScale: NSNumber? { get set }
+    var MinFlips: NSNumber? { get set }
+}
+
+class Cake: Item {
     
     var Sprite: String?
     var Mass: NSNumber?
@@ -27,7 +34,7 @@ class Cake {
     }
 }
 
-class Table {
+class Table: Item {
     
     var Sprite: String?
     var MinFlips: NSNumber?
@@ -44,3 +51,19 @@ class Table {
         
     }
 }
+
+class Background: Item {
+    
+    var Sprite: String?
+    var MinFlips: NSNumber?
+    var XScale: NSNumber?
+    var YScale: NSNumber?
+    
+    init(bgDictionary: NSDictionary) {
+        self.Sprite = bgDictionary["Sprite"] as? String
+        self.MinFlips = bgDictionary["MinFlips"] as? NSNumber
+        self.XScale = bgDictionary["XScale"] as? NSNumber
+        self.YScale = bgDictionary["XScale"] as? NSNumber
+    }
+}
+
