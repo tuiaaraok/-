@@ -259,6 +259,9 @@ class MenuScene: SimpleScene {
         bgNode.size = CGSize(width: bgNode.texture!.size().width * CGFloat(bg.XScale!.floatValue), height: bgNode.texture!.size().height * CGFloat(bg.YScale!.floatValue))
               
         bgNode.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        if UIScreen.main.bounds.height > 800  {
+            bgNode.setScale(CGFloat(1.2))
+        }
               
         lockBowForBg.position = CGPoint(x: playButtonNode.frame.maxX - 20,
                                               y: playButtonNode.frame.minY - 20)

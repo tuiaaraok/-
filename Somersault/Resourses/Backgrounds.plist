@@ -8,29 +8,39 @@
 		<key>MinFlips</key>
 		<integer>0</integer>
 		<key>XScale</key>
-		<integer>3</integer>
+		<integer>4</integer>
 		<key>YScale</key>
-		<real>3.5</real>
+		<integer>4</integer>
 	</dict>
 	<dict>
 		<key>Sprite</key>
 		<string>bg1</string>
 		<key>MinFlips</key>
-		<integer>50</integer>
+		<integer>40</integer>
 		<key>XScale</key>
-		<integer>3</integer>
+		<integer>4</integer>
 		<key>YScale</key>
-		<integer>3</integer>
+		<integer>4</integer>
 	</dict>
 	<dict>
 		<key>Sprite</key>
 		<string>bg2</string>
 		<key>MinFlips</key>
-		<integer>60</integer>
+		<integer>50</integer>
 		<key>XScale</key>
 		<real>1.5</real>
 		<key>YScale</key>
 		<real>1.5</real>
+	</dict>
+	<dict>
+		<key>Sprite</key>
+		<string>bg3</string>
+		<key>MinFlips</key>
+		<integer>60</integer>
+		<key>XScale</key>
+		<integer>3</integer>
+		<key>YScale</key>
+		<integer>3</integer>
 	</dict>
 	<dict>
 		<key>Sprite</key>
@@ -38,9 +48,9 @@
 		<key>MinFlips</key>
 		<integer>70</integer>
 		<key>XScale</key>
-		<integer>3</integer>
+		<integer>4</integer>
 		<key>YScale</key>
-		<integer>3</integer>
+		<integer>4</integer>
 	</dict>
 	<dict>
 		<key>Sprite</key>

@@ -14,8 +14,8 @@ class BackgroundNode: SKSpriteNode {
         super.init(texture: texture, color: .clear, size: texture.size())
         
         self.zPosition = -3
-        self.xScale = 1.3
-        self.yScale = 1.3
+        self.xScale = 2
+        self.yScale = 2
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -90,6 +90,7 @@ class GameScene: SimpleScene {
         let bg = selectedBg as! Background
         bgNode = BackgroundNode(bg)
         bgNode.size = CGSize(width: bgNode.texture!.size().width * CGFloat(bg.XScale!.floatValue), height: bgNode.texture!.size().height * CGFloat(bg.YScale!.floatValue))
+        
         bgNode.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         self.addChild(bgNode)
     
