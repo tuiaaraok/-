@@ -44,7 +44,7 @@
 		635A257B257109EF00401766 /* SKTAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTAudio.swift; sourceTree = "<group>"; };
 		635A257D2571517300401766 /* Rosalinda.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Rosalinda.ttf; sourceTree = "<group>"; };
 		635A258025718B2A00401766 /* Tables.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Tables.plist; sourceTree = "<group>"; };
-		63B581DE256ED30A008FF979 /* Somersault.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Somersault.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		63B581DE256ED30A008FF979 /* Fliping Cake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fliping Cake.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B581E1256ED30A008FF979 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63B581E3256ED30A008FF979 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		63B581E7256ED30A008FF979 /*   GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "  GameScene.swift"; sourceTree = "<group>"; };
@@ -90,7 +90,7 @@
 		63B581DF256ED30A008FF979 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				63B581DE256ED30A008FF979 /* Somersault.app */,
+				63B581DE256ED30A008FF979 /* Fliping Cake.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -211,7 +211,7 @@
 			);
 			name = Somersault;
 			productName = Somersault;
-			productReference = 63B581DE256ED30A008FF979 /* Somersault.app */;
+			productReference = 63B581DE256ED30A008FF979 /* Fliping Cake.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -440,7 +440,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.appsite.Somersault;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Fliping Cake";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -458,7 +458,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.appsite.Somersault;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Fliping Cake";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
