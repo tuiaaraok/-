@@ -34,7 +34,7 @@
 		<key>Sprite</key>
 		<string>cake_3</string>
 		<key>Mass</key>
-		<real>1.75</real>
+		<integer>1</integer>
 		<key>XScale</key>
 		<real>0.65</real>
 		<key>YScale</key>
@@ -146,7 +146,7 @@
 		<key>Sprite</key>
 		<string>cake_11</string>
 		<key>Mass</key>
-		<real>1.65</real>
+		<real>1.089</real>
 		<key>XScale</key>
 		<real>0.65</real>
 		<key>YScale</key>
@@ -160,7 +160,7 @@
 		<key>Sprite</key>
 		<string>cake_12</string>
 		<key>Mass</key>
-		<integer>2</integer>
+		<real>1.5</real>
 		<key>XScale</key>
 		<real>0.68</real>
 		<key>YScale</key>

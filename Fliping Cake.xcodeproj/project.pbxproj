@@ -229,7 +229,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 63B581D9256ED30A008FF979 /* Build configuration list for PBXProject "Somersault" */;
+			buildConfigurationList = 63B581D9256ED30A008FF979 /* Build configuration list for PBXProject "Fliping Cake" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -442,7 +442,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.appsite.Somersault;
 				PRODUCT_NAME = "Fliping Cake";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -460,14 +460,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.appsite.Somersault;
 				PRODUCT_NAME = "Fliping Cake";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		63B581D9256ED30A008FF979 /* Build configuration list for PBXProject "Somersault" */ = {
+		63B581D9256ED30A008FF979 /* Build configuration list for PBXProject "Fliping Cake" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				63B581F4256ED30B008FF979 /* Debug */,

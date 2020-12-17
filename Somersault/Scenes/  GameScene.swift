@@ -44,20 +44,27 @@ class GameScene: SimpleScene {
         // High score label node
         highScoreLabelNode = LabelNode(text: "score",
                                        fontSize: 32,
-                                       position: CGPoint(x: self.frame.midX, y: self.frame.midY - 40))
+                                       position: CGPoint(x: self.frame.midX,
+                                                         y: self.frame.midY - 40))
         highScoreLabelNode.isHidden = true
         self.addChild(highScoreLabelNode)
         
         // back button
         backButtonNode = ButtonNode(imageNode: "left",
-                                    position: CGPoint(x: self.frame.minX + backButtonNode.size.width + 30, y: self.frame.maxY - backButtonNode.size.height - 40),
+                                    position: CGPoint(
+                                        x: self.frame.minX + backButtonNode.size.width + 30,
+                                        y: self.frame.maxY - backButtonNode.size.height - 40
+                                        ),
                                     xScale: 0.3,
                                     yScale: 0.3)
         self.addChild(backButtonNode)
         
         // reset button
         resetButtonNode = ButtonNode(imageNode: "reset",
-                                     position: CGPoint(x: self.frame.maxX - backButtonNode.size.width - 15, y: self.frame.maxY - resetButtonNode.size.height - 40),
+                                     position: CGPoint(
+                                        x: self.frame.maxX - backButtonNode.size.width - 15,
+                                        y: self.frame.maxY - resetButtonNode.size.height - 40
+                                        ),
                                      xScale: 0.09,
                                      yScale: 0.09)
         
@@ -76,20 +83,25 @@ class GameScene: SimpleScene {
     
     func setupGameNodes() {
         
+        // Selected table
         let selectedTable = self.userData?.object(forKey: "table")
         let table = selectedTable as! Table
         tableNode = TableNode(table)
-        tableNode.position = CGPoint(x: self.frame.midX, y: self.frame.minY - 30 + CGFloat(table.YPosition!.floatValue))
+        tableNode.position = CGPoint(x: self.frame.midX,
+                                     y: self.frame.minY - 30 + CGFloat(table.YPosition!.floatValue))
         self.addChild(tableNode)
         
+        // Seleted cake
         let selectedCake = self.userData?.object(forKey: "cake")
         cakeNode = CakeNode(selectedCake as! Cake)
         self.addChild(cakeNode)
         
+        // Selected background
         let selectedBg = self.userData?.object(forKey: "bg")
         let bg = selectedBg as! Background
         bgNode = BackgroundNode(bg)
-        bgNode.size = CGSize(width: bgNode.texture!.size().width * CGFloat(bg.XScale!.floatValue), height: bgNode.texture!.size().height * CGFloat(bg.YScale!.floatValue))
+        bgNode.size = CGSize(width: bgNode.texture!.size().width * CGFloat(bg.XScale!.floatValue),
+                             height: bgNode.texture!.size().height * CGFloat(bg.YScale!.floatValue))
         
         bgNode.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         self.addChild(bgNode)
@@ -182,8 +194,8 @@ class GameScene: SimpleScene {
              
         if didSwipe && cakeNode.physicsBody!.isResting {
             let itemRotation = abs(Float(cakeNode.zRotation))
-                 
-            if itemRotation > 0 && itemRotation < 0.05 {
+                 print(itemRotation)
+            if itemRotation > 0 && itemRotation < 1 {
                 self.successFlip()
             } else {
                 self.failedFlip()

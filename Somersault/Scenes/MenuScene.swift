@@ -45,14 +45,13 @@ class MenuScene: SimpleScene {
     override func didMove(to view: SKView) {
         self.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
         
-        cakes = ItemController.readCakes()
-        tables = ItemController.readTables()
-        backgrounds = ItemController.readBg()
+        cakes = ItemController.readItem(key: "Cakes") as! [Cake]
+        tables = ItemController.readItem(key: "Tables") as! [Table]
+        backgrounds = ItemController.readItem(key: "Backgrounds") as! [Background]
        
         totalCakes = cakes.count
         totalTables = tables.count
         totalBgs = backgrounds.count
-        
         
         highScore = UserDefaults.standard.integer(forKey: "localHighScore")
         flipsAmount = UserDefaults.standard.integer(forKey: "flips")
@@ -67,27 +66,38 @@ class MenuScene: SimpleScene {
     func setupUI() {
         
         // High score
-        let highScoreLabelNode = LabelNode(text: "High score", fontSize: 40, position: CGPoint(x: self.frame.midX - 100, y: self.frame.maxY - 150))
-        highScoreLabelNode.zPosition = 1
+        let highScoreLabelNode = LabelNode(text: "High score",
+                                           fontSize: 40,
+                                           position: CGPoint(x: self.frame.midX - 100,
+                                                             y: self.frame.maxY - 150))
         self.addChild(highScoreLabelNode)
         
         // High score amount
-        let highScoreAmountLabelNode = LabelNode(text: String(highScore) , fontSize: 70, position: CGPoint(x: self.frame.midX - 100, y: self.frame.maxY - 250))
-        highScoreAmountLabelNode.zPosition = 1
+        let highScoreAmountLabelNode = LabelNode(text: String(highScore) ,
+                                                 fontSize: 70,
+                                                 position: CGPoint(x: self.frame.midX - 100,
+                                                                   y: self.frame.maxY - 250))
         self.addChild(highScoreAmountLabelNode)
         
         // total flips label node
-        let totalFlipsLabelNode = LabelNode(text: "Amount", fontSize: 40, position: CGPoint(x: self.frame.midX + 100, y: self.frame.maxY - 150))
-        totalFlipsLabelNode.zPosition = 1
+        let totalFlipsLabelNode = LabelNode(text: "Amount",
+                                            fontSize: 40,
+                                            position: CGPoint(x: self.frame.midX + 100,
+                                                              y: self.frame.maxY - 150))
         self.addChild(totalFlipsLabelNode)
         
         // flips amount
-        let totalFlipsAmountLabelNode = LabelNode(text: String(flipsAmount), fontSize: 70, position: CGPoint(x: self.frame.midX + 100, y: self.frame.maxY - 250))
-        totalFlipsAmountLabelNode.zPosition = 1
+        let totalFlipsAmountLabelNode = LabelNode(text: String(flipsAmount),
+                                                  fontSize: 70,
+                                                  position: CGPoint(x: self.frame.midX + 100,
+                                                                    y: self.frame.maxY - 250))
         self.addChild(totalFlipsAmountLabelNode)
         
         // play button
-        playButtonNode = ButtonNode(imageNode: "play", position: CGPoint(x: self.frame.midX, y: self.frame.midY + 15), xScale: 1.4, yScale: 1.4)
+        playButtonNode = ButtonNode(imageNode: "play",
+                                    position: CGPoint(x: self.frame.midX, y: self.frame.midY + 15),
+                                    xScale: 1.4,
+                                    yScale: 1.4)
         self.addChild(playButtonNode)
         
         // MARK: - Table, cake and background nodes
@@ -95,7 +105,7 @@ class MenuScene: SimpleScene {
         // Table node
         selectedTableIndex = ItemController.getSaveIndex(key: "SelectedTable")
         let selectedTable = tables[selectedTableIndex]
-        tableNode = ButtonNode(imageNode: selectedTable.Sprite!, position: CGPoint(x: self.frame.midX, y: self.frame.minY - 30), xScale: 1.3, yScale: 1.3)
+        tableNode = SKSpriteNode(imageNamed: selectedTable.Sprite!)
         tableNode.zPosition = 1
         self.addChild(tableNode)
         
@@ -113,11 +123,6 @@ class MenuScene: SimpleScene {
         bgNode = SKSpriteNode(imageNamed: selectedBg.Sprite!)
         bgNode.zPosition = -1
         self.addChild(bgNode)
-        
-        // pic node
-        let pic = ButtonNode(imageNode: "painting", position: CGPoint(x: self.frame.midX, y: self.frame.maxY - 60), xScale: 1.2, yScale: 1.2)
-        pic.zPosition = 0
-//        self.addChild(pic)
         
         // MARK: - Left and right buttons
         
@@ -218,21 +223,26 @@ class MenuScene: SimpleScene {
     
     func updateSelectedCake (_ cake: Cake) {
         
-        // update to the selected item
+        // update to the selected cake
         
         updateLockElements(cake, lockBowForCake, unlockLabelNodeForCake, cakeNode)
         
-        cakeNode.size = CGSize(width: cakeNode.texture!.size().width * CGFloat(cake.XScale!.floatValue), height: cakeNode.texture!.size().height * CGFloat(cake.YScale!.floatValue))
+        cakeNode.size = CGSize(
+            width: cakeNode.texture!.size().width * CGFloat(cake.XScale!.floatValue),
+            height: cakeNode.texture!.size().height * CGFloat(cake.YScale!.floatValue)
+        )
         
         cakeNode.position = CGPoint(x: self.frame.midX,
                                     y: self.frame.minY + cakeNode.size.height / 2 + 113)
         
         lockBowForCake.position = CGPoint(x: self.frame.midX + cakeNode.size.width * 0.25 + 20,
-                                        y: self.frame.minY + cakeNode.size.height / 2 + 130)
+                                          y: self.frame.minY + cakeNode.size.height / 2 + 130)
         unlockLabelNodeForCake.text = "\(cake.MinFlips!.intValue)"
-        unlockLabelNodeForCake.position = CGPoint(x: unlockLabelNodeForCake.frame.size.height + 60,
-                                           y: -unlockLabelNodeForCake.frame.size.height + 25)
         
+        unlockLabelNodeForCake.position = CGPoint(
+            x: unlockLabelNodeForCake.frame.size.height + 60,
+            y: -unlockLabelNodeForCake.frame.size.height + 25
+        )
         updateCakeArrowsState()
     }
     
@@ -240,13 +250,21 @@ class MenuScene: SimpleScene {
 
         updateLockElements(table, lockBowForTable, unlockLabelNodeForTable, tableNode)
            
-        tableNode.size = CGSize(width: tableNode.texture!.size().width * CGFloat(table.XScale!.floatValue), height: tableNode.texture!.size().height * CGFloat(table.YScale!.floatValue))
+        tableNode.size = CGSize(
+            width: tableNode.texture!.size().width * CGFloat(table.XScale!.floatValue),
+            height: tableNode.texture!.size().height * CGFloat(table.YScale!.floatValue)
+        )
            
-        tableNode.position = CGPoint(x: self.frame.midX, y: self.frame.minY - 30 + CGFloat(table.YPosition!.floatValue))
+        tableNode.position = CGPoint(x: self.frame.midX,
+                                     y: self.frame.minY - 30 + CGFloat(table.YPosition!.floatValue))
            
         lockBowForTable.position = CGPoint(x: self.frame.midX + tableNode.size.width * 0.25 + 20,
                                            y: self.frame.minY + tableNode.size.height / 2 - 100)
-        unlockLabelNodeForTable.position = CGPoint(x: unlockLabelNodeForTable.frame.size.height + 60, y: -unlockLabelNodeForTable.frame.size.height + 25)
+        
+        unlockLabelNodeForTable.position = CGPoint(
+            x: unlockLabelNodeForTable.frame.size.height + 60,
+            y: -unlockLabelNodeForTable.frame.size.height + 25
+        )
         unlockLabelNodeForTable.text = "\(table.MinFlips!.intValue)"
            
         updateTableArrowsState()
@@ -256,7 +274,10 @@ class MenuScene: SimpleScene {
         
         updateLockElements(bg, lockBowForBg, unlockLabelNodeForBg, bgNode)
               
-        bgNode.size = CGSize(width: bgNode.texture!.size().width * CGFloat(bg.XScale!.floatValue), height: bgNode.texture!.size().height * CGFloat(bg.YScale!.floatValue))
+        bgNode.size = CGSize(
+            width: bgNode.texture!.size().width * CGFloat(bg.XScale!.floatValue),
+            height: bgNode.texture!.size().height * CGFloat(bg.YScale!.floatValue)
+        )
               
         bgNode.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         if UIScreen.main.bounds.height > 800  {
@@ -264,8 +285,9 @@ class MenuScene: SimpleScene {
         }
               
         lockBowForBg.position = CGPoint(x: playButtonNode.frame.maxX - 20,
-                                              y: playButtonNode.frame.minY - 20)
-        unlockLabelNodeForBg.position = CGPoint(x: unlockLabelNodeForBg.frame.size.height + 60, y: -unlockLabelNodeForBg.frame.size.height + 25)
+                                        y: playButtonNode.frame.minY - 20)
+        unlockLabelNodeForBg.position = CGPoint(x: unlockLabelNodeForBg.frame.size.height + 60,
+                                                y: -unlockLabelNodeForBg.frame.size.height + 25)
         unlockLabelNodeForBg.text = "\(bg.MinFlips!.intValue)"
               
         updateBgArrowsState()

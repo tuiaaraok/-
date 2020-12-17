@@ -16,5 +16,6 @@ class LabelNode: SKLabelNode {
         self.fontSize = fontSize
         self.position = position ?? CGPoint(x: 0, y: 0)
         self.fontColor = .black
+        self.zPosition = 1
     }
 }
