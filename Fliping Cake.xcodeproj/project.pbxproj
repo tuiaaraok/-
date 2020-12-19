@@ -114,10 +114,10 @@
 		63B5820D2570274B008FF979 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				63B581FB256ED97B008FF979 /* MenuScene.sks */,
+				63B581F9256ED969008FF979 /* MenuScene.swift */,
 				63B581E7256ED30A008FF979 /*   GameScene.swift */,
 				63B581E3256ED30A008FF979 /* GameScene.sks */,
-				63B581F9256ED969008FF979 /* MenuScene.swift */,
-				63B581FB256ED97B008FF979 /* MenuScene.sks */,
 				63B58209256FC56F008FF979 /* SimpleScene.swift */,
 			);
 			path = Scenes;

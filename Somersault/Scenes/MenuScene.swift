@@ -63,7 +63,7 @@ class MenuScene: SimpleScene {
     
     // MARK: - Setup UI
     
-    func setupUI() {
+    private func setupUI() {
         
         // High score
         let highScoreLabelNode = LabelNode(text: "High score",
@@ -208,7 +208,7 @@ class MenuScene: SimpleScene {
         
     }
     
-    func hideButton(buttonNode: SKSpriteNode, state: Bool) {
+    private func hideButton(buttonNode: SKSpriteNode, state: Bool) {
         var buttonColor = #colorLiteral(red: 0.3411764706, green: 0.3529411765, blue: 0.4431372549, alpha: 0.2024026113)
                
         if state {
@@ -221,7 +221,7 @@ class MenuScene: SimpleScene {
     
     // MARK: - Update selected items
     
-    func updateSelectedCake (_ cake: Cake) {
+    private func updateSelectedCake (_ cake: Cake) {
         
         // update to the selected cake
         
@@ -243,10 +243,15 @@ class MenuScene: SimpleScene {
             x: unlockLabelNodeForCake.frame.size.height + 60,
             y: -unlockLabelNodeForCake.frame.size.height + 25
         )
+        
+        if flipsAmount >= cake.MinFlips!.intValue {
+            unlockLabelNodeForCake.isHidden = true
+            lockBowForCake.isHidden = true
+        }
         updateCakeArrowsState()
     }
     
-    func updateSelectedTable(_ table: Table) {
+    private func updateSelectedTable(_ table: Table) {
 
         updateLockElements(table, lockBowForTable, unlockLabelNodeForTable, tableNode)
            
@@ -266,11 +271,16 @@ class MenuScene: SimpleScene {
             y: -unlockLabelNodeForTable.frame.size.height + 25
         )
         unlockLabelNodeForTable.text = "\(table.MinFlips!.intValue)"
+        
+        if flipsAmount >= table.MinFlips!.intValue {
+            unlockLabelNodeForTable.isHidden = true
+            lockBowForTable.isHidden = true
+        }
            
         updateTableArrowsState()
     }
     
-    func updateSelectedBg(_ bg: Background) {
+    private func updateSelectedBg(_ bg: Background) {
         
         updateLockElements(bg, lockBowForBg, unlockLabelNodeForBg, bgNode)
               
@@ -289,11 +299,16 @@ class MenuScene: SimpleScene {
         unlockLabelNodeForBg.position = CGPoint(x: unlockLabelNodeForBg.frame.size.height + 60,
                                                 y: -unlockLabelNodeForBg.frame.size.height + 25)
         unlockLabelNodeForBg.text = "\(bg.MinFlips!.intValue)"
+        
+        if flipsAmount >= bg.MinFlips!.intValue {
+            unlockLabelNodeForBg.isHidden = true
+            lockBowForBg.isHidden = true
+        }
               
         updateBgArrowsState()
     }
   
-    func updateLockElements(_ item: Item, _ bow: SKSpriteNode, _ label: SKLabelNode, _ itemNode: SKSpriteNode) {
+    private func updateLockElements(_ item: Item, _ bow: SKSpriteNode, _ label: SKLabelNode, _ itemNode: SKSpriteNode) {
         let unlockFlips = Int(truncating: item.MinFlips!) - highScore
         let unlocked = unlockFlips <= 0
 
@@ -303,21 +318,21 @@ class MenuScene: SimpleScene {
         itemNode.texture = SKTexture(imageNamed: item.Sprite!)
     }
     
-    func updateCakeArrowsState() {
+    private func updateCakeArrowsState() {
         hideButton(buttonNode: leftCakeButtonNode,
                    state: Bool(truncating: selectedCakeIndex as NSNumber))
         hideButton(buttonNode: rightCakeButtonNode,
                    state: selectedCakeIndex != totalCakes - 1)
     }
     
-    func updateTableArrowsState() {
+    private func updateTableArrowsState() {
         hideButton(buttonNode: leftTableButtonNode,
                    state: Bool(truncating: selectedTableIndex as NSNumber))
         hideButton(buttonNode: rightTableButtonNode,
                    state: selectedTableIndex != totalTables - 1)
     }
     
-    func updateBgArrowsState() {
+    private func updateBgArrowsState() {
         hideButton(buttonNode: leftBgButtonNode,
                    state: Bool(truncating: selectedBgIndex as NSNumber))
         hideButton(buttonNode: rightBgButtonNode,
@@ -333,11 +348,7 @@ class MenuScene: SimpleScene {
             
             // play button is pressed
             if playButtonNode.contains(location) {
-                
-                selectedCakeIndex = ItemController.getSaveIndex(key: "SelectedCake")
-                selectedTableIndex = ItemController.getSaveIndex(key: "SelectedTable")
-                selectedBgIndex = ItemController.getSaveIndex(key: "SelectedBg")
-                
+
                 let selectedCake = cakes[selectedCakeIndex]
                 let selectedTable = tables[selectedTableIndex]
                 let selectedBg = backgrounds[selectedBgIndex]
@@ -404,21 +415,21 @@ class MenuScene: SimpleScene {
     
     // MARK: - Update index
     
-    func updateByCakeIndex(_ index: Int) {
+    private func updateByCakeIndex(_ index: Int) {
         let cake = cakes[index]
         selectedCakeIndex = index
         updateSelectedCake(cake)
         ItemController.saveSelected(selectedCakeIndex, key: "SelectedCake" )
     }
     
-    func updateByTableIndex(_ index: Int) {
+    private func updateByTableIndex(_ index: Int) {
         let table = tables[index]
         selectedTableIndex = index
         updateSelectedTable(table)
         ItemController.saveSelected(selectedTableIndex, key: "SelectedTable")
     }
     
-    func updateByBgIndex(_ index: Int) {
+    private func updateByBgIndex(_ index: Int) {
         let bg = backgrounds[index]
         selectedBgIndex = index
         updateSelectedBg(bg)
@@ -427,7 +438,7 @@ class MenuScene: SimpleScene {
     
     // MARK: Pulse animation for lock elements
     
-    func pulseLockNode(_ node: SKSpriteNode) {
+    private func pulseLockNode(_ node: SKSpriteNode) {
         let scaleDown = SKAction.scale(to: 0.178, duration: 0.5)
         let scaleUp = SKAction.scale(to: 0.13, duration: 0.5)
         let sequence = SKAction.sequence([scaleDown, scaleUp])
@@ -435,7 +446,7 @@ class MenuScene: SimpleScene {
         node.run(SKAction.repeatForever(sequence))
     }
 
-    func startGame () {
+    private func startGame () {
         let userData: NSMutableDictionary = ["cake" : cakes[selectedCakeIndex]]
         userData["table"] = tables[selectedTableIndex]
         userData["bg"] = backgrounds[selectedBgIndex]
