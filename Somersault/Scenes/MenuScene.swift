@@ -232,11 +232,15 @@ class MenuScene: SimpleScene {
             height: cakeNode.texture!.size().height * CGFloat(cake.YScale!.floatValue)
         )
         
-        cakeNode.position = CGPoint(x: self.frame.midX,
-                                    y: self.frame.minY + cakeNode.size.height / 2 + 113)
+        cakeNode.position = CGPoint(
+            x: self.frame.midX,
+            y: self.frame.minY + cakeNode.size.height / 2 + 113
+        )
         
-        lockBowForCake.position = CGPoint(x: self.frame.midX + cakeNode.size.width * 0.25 + 20,
-                                          y: self.frame.minY + cakeNode.size.height / 2 + 130)
+        lockBowForCake.position = CGPoint(
+            x: self.frame.midX + cakeNode.size.width * 0.25 + 20,
+            y: self.frame.minY + cakeNode.size.height / 2 + 130
+        )
         unlockLabelNodeForCake.text = "\(cake.MinFlips!.intValue)"
         
         unlockLabelNodeForCake.position = CGPoint(
@@ -260,12 +264,17 @@ class MenuScene: SimpleScene {
             height: tableNode.texture!.size().height * CGFloat(table.YScale!.floatValue)
         )
            
-        tableNode.position = CGPoint(x: self.frame.midX,
-                                     y: self.frame.minY - 30 + CGFloat(table.YPosition!.floatValue))
+        tableNode.position = CGPoint(
+            x: self.frame.midX,
+            y: self.frame.minY - 30 + CGFloat(table.YPosition!.floatValue)
+        )
            
-        lockBowForTable.position = CGPoint(x: self.frame.midX + tableNode.size.width * 0.25 + 20,
-                                           y: self.frame.minY + tableNode.size.height / 2 - 100)
+        lockBowForTable.position = CGPoint(
+            x: self.frame.midX + tableNode.size.width * 0.25 + 20,
+            y: self.frame.minY + tableNode.size.height / 2 - 100
+        )
         
+
         unlockLabelNodeForTable.position = CGPoint(
             x: unlockLabelNodeForTable.frame.size.height + 60,
             y: -unlockLabelNodeForTable.frame.size.height + 25
@@ -294,10 +303,14 @@ class MenuScene: SimpleScene {
             bgNode.setScale(CGFloat(1.2))
         }
               
-        lockBowForBg.position = CGPoint(x: playButtonNode.frame.maxX - 20,
-                                        y: playButtonNode.frame.minY - 20)
-        unlockLabelNodeForBg.position = CGPoint(x: unlockLabelNodeForBg.frame.size.height + 60,
-                                                y: -unlockLabelNodeForBg.frame.size.height + 25)
+        lockBowForBg.position = CGPoint(
+            x: playButtonNode.frame.maxX - 20,
+            y: playButtonNode.frame.minY - 20
+        )
+        unlockLabelNodeForBg.position = CGPoint(
+            x: unlockLabelNodeForBg.frame.size.height + 60,
+            y: -unlockLabelNodeForBg.frame.size.height + 25
+        )
         unlockLabelNodeForBg.text = "\(bg.MinFlips!.intValue)"
         
         if flipsAmount >= bg.MinFlips!.intValue {
